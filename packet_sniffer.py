@@ -1,13 +1,15 @@
 import socket
 import sys
 from ethernet_frame import ethernet_address_format, ethernet_frame
-from ipv4 import IPv4_address_format, IPv4_packet, Type_Of_Service, IP_flags
+from ipv4 import IPv4_address_format, IPv4_packet, Type_Of_Service, IP_flags, Diff_service_fields
 from TCP import tcp_flags, tcp_packet
 from UDP import UDP_packet
+from ICMP import *
 
 
+protocols = {'0x800': 'IPv4'}
 
-		
+	
 def main():
 	s = socket.socket(socket.AF_PACKET, socket.SOCK_RAW, socket.ntohs(3))
 	while True:
@@ -19,6 +21,8 @@ def main():
 				tcp_data = tcp_packet(ipv4_data)
 			elif ipv4_proto == 17:
 				udp_data = UDP_packet(ipv4_data, total_length)
+			elif ipv4_proto == 1:
+				
 		
 		
 		

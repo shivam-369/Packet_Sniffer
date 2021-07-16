@@ -32,6 +32,21 @@ def Type_Of_Service(Type_of_service):
 	print(f"\t\t\tRelaibility Bit: {Reliability_bit}({Reliability_list[Reliability_bit]})")
 	
 	
+#prints Differentiated Service field 
+def Diff_service_fields(service):
+	
+	''' DSCP - Differentiated service Codepoint
+	    ECN  - Explicit Congestion Notification
+	'''
+	DSCP = (service >> 2)
+	ECN = (service & 3)
+	
+	print(f"\t\tDifferentiated Field: {service}")
+	print(f"\t\t\tDifferentiated Service Codepoint: {DSCP}({format(DSCP, '#06')})")
+	print(f"\t\t\tExplicit Congestion Notification: {ECN}({format(ECN, '#02')})")
+	
+
+
 # Returns Properly formatted IP address	
 def IPv4_address_format(addr):
 	return '.'.join(map(str, addr))
@@ -50,13 +65,18 @@ def IPv4_packet(data):
 	ipv4_source = IPv4_address_format(source)
 	ipv4_destination = IPv4_address_format(destination)
 	
-	print("\n\tIP packet:")
+	print("\n\tIPv4 packet:")
 	print(f"\t\tversion: {version}")
-	print(f"\t\theader length: {header_length}")
-	Type_Of_Service(Type_of_service)
+	print(f"\t\tHeader length: {header_length}")
+	
+	#print(f"\t\tDifferentiated Service Field: {Type_of_service}")
+	Diff_service_fields(Type_of_service)
+	
+	#Type_Of_Service(Type_of_service)
+	
 	print(f"\t\tTotal Length: {total_length}")
 	print(f"\t\tidentification: {identification}")
-	#print(f"\tflags: {flags}")
+	#print(f"\t\tflags: {flags}")
 	IP_flags(flags)
 	print(f"\t\tfragment offset: {fragment_offset}")
 	print(f"\t\tTime to Leave: {TTL}")
