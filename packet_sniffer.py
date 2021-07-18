@@ -6,6 +6,7 @@ from TCP import tcp_flags, tcp_packet
 from UDP import UDP_packet
 from ICMP import *
 from formatting import *
+from Application_layer import *
 
 protocols = {'0x800': 'IPv4'}
 
@@ -22,8 +23,12 @@ def main():
 			tab_count += 1
 			if ipv4_proto == 6:
 				tcp_data = tcp_packet(ipv4_data, tab_count)
+				tab_count += 1
+				application_data(tcp_data, tab_count)
 			elif ipv4_proto == 17:
 				udp_data = UDP_packet(ipv4_data, total_length, tab_count)
+				tab_count += 1
+				application_data(udp_data, tab_count)
 			elif ipv4_proto == 1:
 				ICMP_classify(ipv4_data, tab_count)
 		
