@@ -159,7 +159,7 @@ def Source_quench_packet(data, tab_count):
 
 def Parameter_problem_packet(data, tab_count):
 	
-	Type, Code, Checksum = struct.unpack("! B B H" data[:4])
+	Type, Code, Checksum = struct.unpack("! B B H", data[:4])
 	Pointer = struct.unpack("! B", data[4:5])
 	unused_bits = struct.unpack("! x 3s", data[5:8])
 	
